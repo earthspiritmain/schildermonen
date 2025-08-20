@@ -1,0 +1,73 @@
+{
+  "rules": [
+    {
+      "name": "Monen Schilderwerken Website",
+      "description": "You are building a sleek, responsive, single-page business website for a Dutch painter using Flask and NGINX. Keep the structure modular and clean.",
+      "guidelines": [
+        {
+          "category": "Design & Layout",
+          "items": [
+            "**Black and White Color Scheme**: Use only black, white, and grayscale values for layout and typography.",
+            "**Clean Typography**: Use sans-serif fonts (like Inter or Helvetica). Keep text legible and minimal.",
+            "**Large Hero Image**: Use a full-width image of Jelle on the homepage, above the fold.",
+            "**Simple Grid Layout**: Use a two or three-column layout for services if needed, but default to vertical stacks on mobile.",
+            "**Responsive Design**: Site must be fully responsive and mobile-optimized."
+          ]
+        },
+        {
+          "category": "Functionality",
+          "items": [
+            "**Instagram Integration**: Add a clear button or icon that links to Instagram. Open in a new tab.",
+            "**WhatsApp Button**: Add a floating WhatsApp contact button that links to `https://wa.me/31647323264`.",
+            "**Image Sources**: Pull static images from Google Drive (manual selection) and embed Instagram preview images with caching.",
+            "**No Login or User Auth**: This is a static business website. Do not implement login, sessions, or auth flows."
+          ]
+        },
+        {
+          "category": "Backend (Flask)",
+          "items": [
+            "**Single Blueprint**: Use a `main` blueprint for all routes.",
+            "**Template Inheritance**: Use Jinja2 inheritance for `base.html`, `home.html`, and partials like `header.html`, `footer.html`.",
+            "**Static Files**: Organize static files under `static/` (e.g., `css/`, `js/`, `img/`).",
+            "**App Factory Pattern**: Use the Flask app factory pattern for modularity.",
+            "**Minimal Python Logic**: Backend should just serve templates and static content — no business logic or database models."
+          ]
+        },
+        {
+          "category": "Frontend (HTML/CSS)",
+          "items": [
+            "**Use Tailwind CSS**: For fast and responsive styling. Configure in `static/css/` if not using CDN.",
+            "**No Heavy JS Frameworks**: Avoid React, Vue, or complex frontends. Alpine.js or plain JS is okay for interactions.",
+            "**SEO Best Practices**: Include title, description, OpenGraph tags, and alt text for images.",
+            "**Accessibility**: Use semantic HTML and ARIA tags for accessibility."
+          ]
+        },
+        {
+          "category": "NGINX Deployment",
+          "items": [
+            "**WSGI Server**: Use Gunicorn to serve Flask app.",
+            "**Static Caching**: Configure NGINX to serve static files and cache them aggressively.",
+            "**Security Headers**: Enable basic security headers (Content Security Policy, X-Frame-Options, etc.).",
+            "**HTTPS Redirect**: Ensure all HTTP traffic is redirected to HTTPS."
+          ]
+        },
+        {
+          "category": "Structure & File Naming",
+          "items": [
+            "**Directory Structure**: Use folders like `templates/`, `static/css/`, `static/img/`, `main/`, and `app.py` at root.",
+            "**Naming Conventions**: Use `snake_case` for file and folder names (e.g., `about_section.html`, `services.py`).",
+            "**Image Optimization**: Compress all uploaded images and serve appropriately sized versions for different screen sizes."
+          ]
+        },
+        {
+          "category": "Content Guidelines",
+          "items": [
+            "**About Section**: Highlight Jelle’s 7+ years experience and Dutch craftsmanship tone.",
+            "**Services**: Clearly list interior painting, exterior painting, and wood rot repair — exclude latex painting.",
+            "**Contact Info**: Clearly display phone, email, and WhatsApp button. Avoid using contact forms."
+          ]
+        }
+      ]
+    }
+  ]
+}
