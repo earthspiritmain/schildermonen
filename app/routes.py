@@ -1,28 +1,13 @@
 from flask import Blueprint, render_template, url_for, current_app
 import os
+import re
 
 main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
-    # Gather gallery images (excluding before/after folders to avoid duplicates)
+    # Base gallery directory for images used in before/after showcase
     gallery_dir = os.path.join(current_app.static_folder, 'pictures', 'gallery')
-    gallery = []
-    
-    # Folders to exclude from main gallery (these are used in before/after showcase)
-    excluded_folders = {
-        'before and after door',
-        'before and after 3 examples NY PIZZA'
-    }
-    
-    for folder in os.listdir(gallery_dir):
-        folder_path = os.path.join(gallery_dir, folder)
-        if os.path.isdir(folder_path) and folder not in excluded_folders:
-            for img in os.listdir(folder_path):
-                if img.lower().endswith((".jpg", ".jpeg", ".png")):
-                    # Store relative path for url_for and fix path separators for web URLs
-                    rel_path = os.path.join('pictures', 'gallery', folder, img)
-                    gallery.append(rel_path.replace("\\", "/"))
     
     # Before/After Projects
     before_after_projects = []
@@ -42,8 +27,8 @@ def index():
         
         if 'before' in door_images and 'after' in door_images:
             before_after_projects.append({
-                'title': 'Deur Renovatie',
-                'description': 'Professionele restauratie van een voordeur',
+                'title': 'Deur schilderen',
+                'description': 'Professioneel schilderwerk van een deur',
                 'before': door_images['before'],
                 'after': door_images['after']
             })
@@ -65,30 +50,50 @@ def index():
         pizza_images['before'].sort()
         pizza_images['after'].sort()
         
-        # Create pairs
-        for i in range(min(len(pizza_images['before']), len(pizza_images['after']))):
+        # Only include the first pair to avoid showing multiple NY Pizza items
+        if pizza_images['before'] and pizza_images['after']:
             before_after_projects.append({
-                'title': f'NY Pizza Renovatie {i+1}',
+                'title': 'NY Pizza Renovatie 1',
                 'description': 'Volledige transformatie van restaurant exterieur',
-                'before': pizza_images['before'][i],
-                'after': pizza_images['after'][i]
+                'before': pizza_images['before'][0],
+                'after': pizza_images['after'][0]
             })
     
-    # Hero images
-    hero_dir = os.path.join(current_app.static_folder, 'pictures', 'hero')
-    hero_images = []
-    for f in os.listdir(hero_dir):
-        if f.lower().endswith((".jpg", ".jpeg", ".png")):
-            rel_path = os.path.join('pictures', 'hero', f)
-            hero_images.append(rel_path.replace("\\", "/"))
-    # Logos
-    logo_dir = os.path.join(current_app.static_folder, 'pictures', 'logos')
-    logos = []
-    for f in os.listdir(logo_dir):
-        if f.lower().endswith((".jpg", ".jpeg", ".png", ".svg")):
-            rel_path = os.path.join('pictures', 'logos', f)
-            logos.append(rel_path.replace("\\", "/"))
-    return render_template('index.html', gallery=gallery, hero_images=hero_images, logos=logos, before_after_projects=before_after_projects)
+    # Additional root-level before/after pairs (e.g. before6/after6) in gallery root
+    root_pairs = {}
+    if os.path.exists(gallery_dir):
+        for f in os.listdir(gallery_dir):
+            file_path = os.path.join(gallery_dir, f)
+            if os.path.isfile(file_path) and f.lower().endswith((".jpg", ".jpeg", ".png")):
+                match = re.match(r'^(before|after)(\d+)\.(jpg|jpeg|png)$', f.lower())
+                if match:
+                    kind = match.group(1)  # 'before' or 'after'
+                    num = int(match.group(2))
+                    rel_path = os.path.join('pictures', 'gallery', f).replace("\\", "/")
+                    pair_entry = root_pairs.setdefault(num, {})
+                    pair_entry[kind] = rel_path
+    
+    for num in sorted(root_pairs.keys()):
+        pair = root_pairs[num]
+        if 'before' in pair and 'after' in pair:
+            if num == 6:
+                title = 'Deur renovatie'
+                description = 'Professionele restauratie van een deur'
+            elif num == 7:
+                title = 'Terras schilderwerk'
+                description = 'Professioneel schilderwerk van een terras'
+            else:
+                title = f'Project {num}'
+                description = 'Nieuwe transformatie uitgelicht'
+
+            before_after_projects.append({
+                'title': title,
+                'description': description,
+                'before': pair['before'],
+                'after': pair['after']
+            })
+
+    return render_template('index.html', before_after_projects=before_after_projects)
 
 @main.route('/about')
 def about():
@@ -100,3 +105,14 @@ def about():
             rel_path = os.path.join('pictures', 'logos', f)
             logos.append(rel_path.replace("\\", "/"))
     return render_template('about.html', logos=logos) 
+
+@main.route('/contact')
+def contact():
+    # Logos for the contact page (favicon)
+    logo_dir = os.path.join(current_app.static_folder, 'pictures', 'logos')
+    logos = []
+    for f in os.listdir(logo_dir):
+        if f.lower().endswith((".jpg", ".jpeg", ".png", ".svg")):
+            rel_path = os.path.join('pictures', 'logos', f)
+            logos.append(rel_path.replace("\\", "/"))
+    return render_template('contact.html', logos=logos)
