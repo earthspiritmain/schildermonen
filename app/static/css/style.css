@@ -1233,6 +1233,7 @@ body {
   height: 100vh;
   min-height: 600px;
   margin-top: 96px;
+  background-image: url('../pictures/hero/MONEN SCHILDERWERKEN-Jelle3.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1523,6 +1524,10 @@ body {
 
 /* Mobile Responsive Styles for About Page */
 @media (max-width: 768px) {
+  .about-hero-section {
+    background-image: url('../pictures/hero/MONEN SCHILDERWERKEN-Jelle4.jpg');
+  }
+
   .about-hero-title {
     font-size: 2.5rem;
   }
