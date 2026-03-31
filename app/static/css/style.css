@@ -35,7 +35,8 @@ body {
 
 /* Desktop hero background */
 .hero-section--desktop {
-  background-image: url('../pictures/hero/MONEN SCHILDERWERKEN-Jelle5.jpg');
+  background-image: url('../pictures/gallery/startpagenew.jpeg');
+  background-position: center center;
 }
 
 .hero-section::before {
@@ -72,6 +73,7 @@ body {
 .hero-nav__logo .nav-logo {
   height: 72px;
   width: auto;
+  mix-blend-mode: screen;
 }
 
 .hero-nav__logo a {
@@ -1000,7 +1002,8 @@ body {
 /* Responsive Design - Mobile optimized image for narrow screens */
 @media (max-width: 1024px) {
   .hero-section--desktop {
-    background-image: url('../pictures/hero/MONEN SCHILDERWERKEN-Jelle4.jpg');
+    background-image: url('../pictures/gallery/startpagenew.jpeg');
+    background-position: center center;
   }
 }
 
