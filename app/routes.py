@@ -27,8 +27,8 @@ def index():
         
         if 'before' in door_images and 'after' in door_images:
             before_after_projects.append({
-                'title': 'Deur schilderen',
-                'description': 'Professioneel schilderwerk van een deur',
+                'title': 'Texwerk schilderen',
+                'description': 'Professioneel schilderwerk van texwerk',
                 'before': door_images['before'],
                 'after': door_images['after']
             })
@@ -53,7 +53,7 @@ def index():
         # Only include the first pair to avoid showing multiple NY Pizza items
         if pizza_images['before'] and pizza_images['after']:
             before_after_projects.append({
-                'title': 'NY Pizza Renovatie 1',
+                'title': 'NY Pizza Renovatie',
                 'description': 'Volledige transformatie van restaurant exterieur',
                 'before': pizza_images['before'][0],
                 'after': pizza_images['after'][0]
@@ -77,8 +77,8 @@ def index():
         pair = root_pairs[num]
         if 'before' in pair and 'after' in pair:
             if num == 6:
-                title = 'Deur renovatie'
-                description = 'Professionele restauratie van een deur'
+                title = 'Texwerk renovatie'
+                description = 'Professionele restauratie van texwerk'
             elif num == 7:
                 title = 'Terras schilderwerk'
                 description = 'Professioneel schilderwerk van een terras'
