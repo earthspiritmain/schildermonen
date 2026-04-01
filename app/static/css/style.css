@@ -1347,6 +1347,10 @@ body {
   margin: 0;
 }
 
+.founder__bio + .founder__bio {
+  margin-top: 1rem;
+}
+
 /* About Services Section */
 .about-services {
   background: var(--bg-primary);
@@ -1563,7 +1567,12 @@ body {
   .founder__bio {
     font-size: 1rem;
   }
-  
+
+  .founder-section,
+  .about-services {
+    padding: 2rem 0;
+  }
+
   .about-services__title,
   .highlights__title {
     font-size: 2rem;
